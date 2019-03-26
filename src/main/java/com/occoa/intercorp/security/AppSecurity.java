@@ -11,27 +11,6 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-    	httpSecurity
-        .requiresChannel().anyRequest().requiresSecure()
-        .and()
-        .csrf().disable()
-        .authorizeRequests()
-        .antMatchers("/login", "/error")
-        .permitAll()
-        .antMatchers("/")
-        .hasRole("USER")
-        .antMatchers("/admin")
-        .hasRole("ADMIN")
-        .anyRequest().authenticated()
-        .and()
-        .formLogin()
-        .loginPage("/login")
-        .defaultSuccessUrl("/")
-        .and()
-        .logout()
-        .and()
-        .sessionManagement()
-        .maximumSessions(60)
-        .expiredUrl("/login?expired");
+    	httpSecurity.requiresChannel().antMatchers("/**").requiresSecure();
     }
 }
